@@ -323,14 +323,14 @@ function ProductModal({ product, brand, onClose }) {
           <p style={{ fontFamily: "'Inter', sans-serif", fontSize: "15px", lineHeight: 1.8, color: "#4A4738", margin: "0 0 32px" }}>{product.description}</p>
 
           <div style={{ marginTop: "auto", display: "flex", flexDirection: "column", gap: "10px" }}>
-            
+            <a
               href={emailLink}
               style={{ ...buttonBase, background: "#15130F", color: "#F7F4EF" }}
             >
               Enquire by email
             </a>
             {whatsappLink && (
-              
+              <a
                 href={whatsappLink}
                 target="_blank"
                 rel="noopener noreferrer"
