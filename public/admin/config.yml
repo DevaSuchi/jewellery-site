@@ -1,0 +1,49 @@
+backend:
+  name: github
+  repo: DevaSuchi/jewellery-site
+  branch: main
+
+media_folder: "public/images"
+public_folder: "/images"
+
+publish_mode: simple
+
+collections:
+  - name: "products"
+    label: "Products"
+    folder: "content/products"
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Name", name: "name", widget: "string" }
+      - { label: "Price", name: "price", widget: "string", hint: "e.g. $148" }
+      - { label: "Photo", name: "image", widget: "image" }
+      - { label: "Display order", name: "order", widget: "number", default: 1 }
+      - { label: "Description", name: "body", widget: "text" }
+
+  - name: "hero"
+    label: "Hero slides"
+    folder: "content/hero"
+    create: true
+    delete: true
+    slug: "slide-{{fields.order}}"
+    fields:
+      - { label: "Eyebrow label", name: "eyebrow", widget: "string" }
+      - { label: "Headline", name: "headline", widget: "string" }
+      - { label: "Subtext", name: "sub", widget: "string" }
+      - { label: "Photo", name: "image", widget: "image" }
+      - { label: "Display order", name: "order", widget: "number", default: 1 }
+
+  - name: "settings"
+    label: "Brand settings"
+    files:
+      - label: "Brand"
+        name: "brand"
+        file: "content/settings.yml"
+        fields:
+          - { label: "Brand name", name: "name", widget: "string" }
+          - { label: "Tagline", name: "tagline", widget: "string" }
+          - { label: "About paragraph", name: "about", widget: "text" }
+          - { label: "Contact email", name: "email", widget: "string" }
+          - { label: "Instagram handle", name: "instagram", widget: "string" }
