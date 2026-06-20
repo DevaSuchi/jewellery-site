@@ -1,6 +1,25 @@
 import React, { useState, useEffect, useRef } from "react";
 import { loadProducts, loadHero, loadBrand } from "./content.js";
 
+const CONTACT = {
+  whatsappNumber: "",
+};
+
+function buildEmailLink(brand, product) {
+  const subject = encodeURIComponent(`Enquiry: ${product.name}`);
+  const body = encodeURIComponent(
+    `Hi, I'd like to buy the ${product.name} (${product.price}).\n\nPlease let me know how to proceed with payment.`
+  );
+  return `mailto:${brand.email}?subject=${subject}&body=${body}`;
+}
+
+function buildWhatsappLink(number, product) {
+  const text = encodeURIComponent(
+    `Hi, I'd like to buy the ${product.name} (${product.price}). Please let me know how to proceed with payment.`
+  );
+  return `https://wa.me/${number}?text=${text}`;
+}
+
 function GoldDivider({ style }) {
   return (
     <div
@@ -260,8 +279,26 @@ function Shop({ products, onOpen }) {
   );
 }
 
-function ProductModal({ product, onClose }) {
+function ProductModal({ product, brand, onClose }) {
   if (!product) return null;
+  const emailLink = buildEmailLink(brand, product);
+  const whatsappLink = CONTACT.whatsappNumber
+    ? buildWhatsappLink(CONTACT.whatsappNumber, product)
+    : null;
+
+  const buttonBase = {
+    display: "block",
+    textAlign: "center",
+    padding: "14px",
+    fontFamily: "'Inter', sans-serif",
+    fontSize: "12px",
+    letterSpacing: "0.1em",
+    textTransform: "uppercase",
+    textDecoration: "none",
+    cursor: "pointer",
+    border: "1px solid #15130F",
+  };
+
   return (
     <div
       onClick={onClose}
@@ -283,7 +320,26 @@ function ProductModal({ product, onClose }) {
           </button>
           <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: "30px", fontWeight: 500, margin: "0 0 12px", color: "#15130F" }}>{product.name}</h2>
           <p style={{ fontFamily: "'Inter', sans-serif", fontSize: "18px", color: "#A8843E", margin: "0 0 28px" }}>{product.price}</p>
-          <p style={{ fontFamily: "'Inter', sans-serif", fontSize: "15px", lineHeight: 1.8, color: "#4A4738", margin: 0 }}>{product.description}</p>
+          <p style={{ fontFamily: "'Inter', sans-serif", fontSize: "15px", lineHeight: 1.8, color: "#4A4738", margin: "0 0 32px" }}>{product.description}</p>
+
+          <div style={{ marginTop: "auto", display: "flex", flexDirection: "column", gap: "10px" }}>
+            
+              href={emailLink}
+              style={{ ...buttonBase, background: "#15130F", color: "#F7F4EF" }}
+            >
+              Enquire by email
+            </a>
+            {whatsappLink && (
+              
+                href={whatsappLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ ...buttonBase, background: "transparent", color: "#15130F" }}
+              >
+                Enquire on WhatsApp
+              </a>
+            )}
+          </div>
         </div>
       </div>
     </div>
@@ -333,7 +389,7 @@ export default function App() {
       <Shop products={products} onOpen={setOpenProduct} />
       <About brand={brand} />
       <Footer brand={brand} />
-      <ProductModal product={openProduct} onClose={() => setOpenProduct(null)} />
+      <ProductModal product={openProduct} brand={brand} onClose={() => setOpenProduct(null)} />
     </div>
   );
 }
