@@ -10,7 +10,9 @@ function buildEmailLink(brand, product) {
   const body = encodeURIComponent(
     `Hi, I'd like to buy the ${product.name} (${product.price}).\n\nPlease let me know how to proceed with payment.`
   );
-  return `mailto:${brand.email}?subject=${subject}&body=${body}`;
+  return `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(
+    brand.email
+  )}&su=${subject}&body=${body}`;
 }
 
 function buildWhatsappLink(number, product) {
@@ -323,14 +325,16 @@ function ProductModal({ product, brand, onClose }) {
           <p style={{ fontFamily: "'Inter', sans-serif", fontSize: "15px", lineHeight: 1.8, color: "#4A4738", margin: "0 0 32px" }}>{product.description}</p>
 
           <div style={{ marginTop: "auto", display: "flex", flexDirection: "column", gap: "10px" }}>
-            <a
+            
               href={emailLink}
+              target="_blank"
+              rel="noopener noreferrer"
               style={{ ...buttonBase, background: "#15130F", color: "#F7F4EF" }}
             >
               Enquire by email
             </a>
             {whatsappLink && (
-              <a
+              
                 href={whatsappLink}
                 target="_blank"
                 rel="noopener noreferrer"
