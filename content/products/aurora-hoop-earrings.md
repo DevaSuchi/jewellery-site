@@ -1,5 +1,5 @@
 ---
-name: Aurora Hoop Earrings
+name: Blue Aura Necklace and Earrings Set
 price: $148
 image: /images/img_2249.jpg
 order: 1
