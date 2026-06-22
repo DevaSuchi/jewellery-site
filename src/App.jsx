@@ -335,7 +335,7 @@ function ProductModal({ product, brand, onClose }) {
             </a>
             {whatsappLink && (
               
-                href={whatsappLink}
+                <a href={whatsappLink}
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{ ...buttonBase, background: "transparent", color: "#15130F" }}
